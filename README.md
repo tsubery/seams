@@ -1,7 +1,7 @@
 # Seams
 
 Seams is a micro library that helps isolate dependencies under test environment. There are multiple approaches to achieve test isolation: dependency injection, using a dependency registry or using mocking libraries.
-This library design goals are 
+This library design goals are:
 * Reducing "magic" by explicity specifying what can mocked.
 * Minimize changes to production code
 * Minimize runtime overhead
@@ -23,7 +23,7 @@ end
 ## Usage
 
 The syntax is identical to Kernel.defdelegate/2
-```
+```elixir
 defmodule Controller do
   Seams.defseam post(args), to: Http, as: http_post
 end
@@ -43,8 +43,4 @@ defmodule PaymentTest do
 end
 
 ```
-
-Documentation can be generated with [ExDoc](https://github.com/elixir-lang/ex_doc)
-and published on [HexDocs](https://hexdocs.pm). Once published, the docs can
-be found at [https://hexdocs.pm/seams](https://hexdocs.pm/seams).
 
