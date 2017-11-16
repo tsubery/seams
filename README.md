@@ -25,11 +25,12 @@ end
 The syntax is identical to Kernel.defdelegate/2
 ```elixir
 defmodule Controller do
-  Seams.defseam post(args), to: Http, as: http_post
+  use Seams
+  Seams.defseam inspect(arg), to: IO
 end
 
-defmodule FakeHttp do
-  def post(args), do: "posted #{inspect(args)}"
+defmodule FakeIO do
+  def post(arg), do: "FakeIO: #{arg}"
 end
 
 
@@ -37,8 +38,11 @@ defmodule PaymentTest do
   use Seams
 
   test "no change by default" do
-    Seams.replace(Http, FakeHttp)
-    assert Controller.post("123") == "posted 123"
+    assert Controller.inspect("123") == "123"
+    Seams.replace(IO, FakeIO)
+    assert Controller.inspect("123") == "FakeIO: 123"
+    Seams.reset()
+    assert Controller.inspect("123") == "123"
   end
 end
 
